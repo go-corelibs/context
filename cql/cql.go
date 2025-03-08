@@ -38,13 +38,13 @@ const (
 
 var (
 	gLexer = lexer.MustSimple([]lexer.SimpleRule{
+		{Name: `Operators`, Pattern: gOperators},
 		{Name: `Keyword`, Pattern: `(?i)\b(TRUE|FALSE|NULL|IS|NOT|AND|OR|IN)\b`},
 		{Name: `Ident`, Pattern: gIdent},
 		{Name: `Int`, Pattern: gInteger},
 		{Name: `Float`, Pattern: gFloat},
 		{Name: `String`, Pattern: gString},
 		{Name: `Regexp`, Pattern: gRegexp},
-		{Name: `Operators`, Pattern: gOperators},
 		{Name: `whitespace`, Pattern: gWhitespace},
 	})
 	gParser = participle.MustBuild[Statement](
