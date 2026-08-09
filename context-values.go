@@ -58,12 +58,13 @@ func (c Context) String(key string, def ...string) string {
 // actual value is not a list of strings, return that as a list of one string
 func (c Context) StringOrStrings(key string) (values []string) {
 	if v := c.Get(key); v != nil {
-		if s, ok := v.(string); ok {
-			values = []string{s}
-			return
-		}
-		if vi, ok := v.([]interface{}); ok {
-			for _, i := range vi {
+		switch t := v.(type) {
+		case string:
+			return []string{t}
+		case []string:
+			return t
+		case []interface{}:
+			for _, i := range t {
 				if s, ok := i.(string); ok {
 					values = append(values, s)
 				}
